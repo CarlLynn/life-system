@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>兑换码生成器 · 人生养成系统（卖家工具）</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#171033,#3b1150);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;color:#f4f1ff}
+.card{background:rgba(255,255,255,.07);backdrop-filter:blur(14px);border:1px solid rgba(196,181,253,.25);border-radius:20px;padding:36px;width:100%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+h1{font-size:1.2rem;margin-bottom:6px;letter-spacing:.06em}
+.sub{font-size:.75rem;color:#c9c2e8;margin-bottom:24px}
+label{display:block;font-size:.75rem;color:#c9c2e8;margin:14px 0 6px}
+select,input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(196,181,253,.3);background:rgba(255,255,255,.08);color:#fff;font-size:.9rem}
+button{margin-top:18px;width:100%;padding:12px;border:none;border-radius:12px;background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(236,72,153,.35)}
+button:hover{transform:translateY(-1px)}
+#out{margin-top:18px;font-family:'JetBrains Mono',Consolas,monospace;font-size:1rem;letter-spacing:.1em;background:rgba(0,0,0,.35);border:1px dashed rgba(244,114,182,.5);border-radius:12px;padding:16px;text-align:center;word-break:break-all;color:#f9a8d4;display:none}
+.note{font-size:.66rem;color:#9b92c4;margin-top:18px;line-height:1.7}
+.copy{background:rgba(255,255,255,.12);margin-top:8px;box-shadow:none}
+.history{margin-top:14px;font-size:.7rem;color:#c9c2e8}
+.history div{background:rgba(255,255,255,.06);border-radius:8px;padding:6px 10px;margin-top:6px;display:flex;justify-content:space-between;font-family:Consolas,monospace}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🔑 兑换码生成器</h1>
+  <div class="sub">人生养成系统 · 卖家专用工具（请勿公开此页面）</div>
+  <label>套餐类型</label>
+  <select id="plan">
+    <option value="lifetime">终身版（¥38）</option>
+    <option value="monthly">月度会员（¥12）</option>
+  </select>
+  <button onclick="gen()">生成兑换码</button>
+  <div id="out"></div>
+  <button class="copy" onclick="copyKey()" id="copyBtn" style="display:none">复制</button>
+  <div class="history" id="history"></div>
+  <div class="note">校验算法与 App 端一致（js/license.js）。兑换码可在「爱发电 / 闲鱼 / 微信私发」等任意渠道售卖，买家在应用内「升级 PRO → 兑换码激活」输入即可。<br>⚠️ 正式商用建议增加服务端签发与在线校验（见 docs/部署与上线指南.md）。</div>
+</div>
+<script>
+const ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const SECRET='LifeSystem2026*#Youth';
+function hash(s){let h=5381;for(let i=0;i<s.length;i++)h=((h*33)^s.charCodeAt(i))>>>0;return h;}
+function randGroup(len){let s='';const a=new Uint32Array(len);crypto.getRandomValues(a);for(let i=0;i<len;i++)s+=ALPHABET[a[i]%ALPHABET.length];return s;}
+function gen(){
+  const type=document.getElementById('plan').value;
+  const body=randGroup(15);
+  const check=ALPHABET[((hash(body+SECRET+type)%36)+36)%36];
+  const groups=(body+check).match(/.{4}/g);
+  const key='LS-'+groups.join('-');
+  document.getElementById('out').style.display='block';
+  document.getElementById('out').textContent=key;
+  document.getElementById('copyBtn').style.display='block';
+  const hist=document.getElementById('history');
+  const row=document.createElement('div');
+  row.innerHTML='<span>'+(type==='lifetime'?'终身':'月卡')+'</span><span>'+key+'</span>';
+  hist.prepend(row);
+  while(hist.children.length>10)hist.lastChild.remove();
+}
+function copyKey(){navigator.clipboard.writeText(document.getElementById('out').textContent).then(()=>{document.getElementById('copyBtn').textContent='✓ 已复制';setTimeout(()=>document.getElementById('copyBtn').textContent='复制',1500);});}
+</script>
+</body>
+</html>

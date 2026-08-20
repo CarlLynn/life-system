@@ -1,0 +1,161 @@
+/* ============================================
+   v5.1 Youth Theme System + Commercial UI
+   ============================================ */
+
+/* ---------- Default applied before JS: youth ---------- */
+html[data-theme="youth"]{
+  --bg:            #171033;
+  --bg-deep:       #0f0926;
+  --surface-1:     rgba(255,255,255,.06);
+  --surface-2:     rgba(255,255,255,.09);
+  --surface-3:     rgba(255,255,255,.14);
+  --text-primary:  #f4f1ff;
+  --text-secondary:#c9c2e8;
+  --text-tertiary: #9b92c4;
+  --text-faint:    #6f6696;
+  --border:        rgba(196,181,253,.22);
+  --border-subtle: rgba(196,181,253,.13);
+  --border-strong: rgba(232,121,249,.45);
+  --accent:        #f472b6;
+  --accent-dim:    #e879f9;
+  --accent-deep:   #a855f7;
+  --accent-glow:   rgba(244,114,182,.14);
+  --violet:        #a78bfa;
+  --violet-dim:    #8b5cf6;
+  --violet-glow:   rgba(167,139,250,.14);
+  --success:       #4ade80;
+  --warning:       #facc15;
+  --error:         #fb7185;
+  --info:          #38bdf8;
+  --r-sm:6px; --r-md:12px; --r-lg:20px; --r-xl:28px;
+}
+html[data-theme="youth"] body{
+  background:
+    radial-gradient(600px 400px at 90% -10%, rgba(168,85,247,.28), transparent 60%),
+    radial-gradient(500px 420px at -10% 20%, rgba(244,114,182,.20), transparent 60%),
+    radial-gradient(700px 500px at 50% 120%, rgba(56,189,248,.16), transparent 60%),
+    #0f0926;
+  background-attachment: fixed;
+}
+html[data-theme="youth"] body::before,
+html[data-theme="youth"] body::after{display:none}
+html[data-theme="youth"] #app{
+  background:rgba(18,11,42,.72);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 0 80px rgba(120,60,220,.18),inset 0 0 60px rgba(244,114,182,.05);
+  border-left:1px solid rgba(196,181,253,.10);border-right:1px solid rgba(196,181,253,.10);
+}
+html[data-theme="youth"] .btn-primary{
+  background:linear-gradient(135deg,#a855f7,#ec4899,#f472b6);
+  color:#fff;box-shadow:0 6px 24px rgba(236,72,153,.35);
+}
+html[data-theme="youth"] .btn-primary:hover{box-shadow:0 10px 32px rgba(236,72,153,.5)}
+html[data-theme="youth"] .loading-logo{color:var(--accent)}
+html[data-theme="youth"] .app-header-title span{color:var(--violet)}
+
+/* ---------- Day (light) theme ---------- */
+html[data-theme="day"]{
+  --bg:            #fdf7ef;
+  --bg-deep:       #faf3e9;
+  --surface-1:     rgba(255,255,255,.82);
+  --surface-2:     rgba(255,255,255,.95);
+  --surface-3:     #f3e9dc;
+  --text-primary:  #3b2f4a;
+  --text-secondary:#6b5d80;
+  --text-tertiary: #9689a8;
+  --text-faint:    #b3a8c0;
+  --border:        rgba(107,93,128,.20);
+  --border-subtle: rgba(107,93,128,.12);
+  --border-strong: rgba(236,72,153,.40);
+  --accent:        #ec4899;
+  --accent-dim:    #d946ef;
+  --accent-deep:   #a855f7;
+  --accent-glow:   rgba(236,72,153,.10);
+  --violet:        #8b5cf6;
+  --violet-dim:    #7c3aed;
+  --violet-glow:   rgba(139,92,246,.10);
+  --success:       #10b981;
+  --warning:       #f59e0b;
+  --error:         #ef4444;
+  --info:          #0ea5e9;
+  --r-sm:6px; --r-md:12px; --r-lg:20px; --r-xl:28px;
+}
+html[data-theme="day"] body{
+  background:
+    radial-gradient(600px 420px at 90% -10%, rgba(244,114,182,.18), transparent 60%),
+    radial-gradient(500px 400px at -10% 20%, rgba(139,92,246,.12), transparent 60%),
+    #faf3e9;
+  background-attachment: fixed;
+}
+html[data-theme="day"] body::before,
+html[data-theme="day"] body::after{display:none}
+html[data-theme="day"] #app{
+  background:rgba(255,252,246,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 0 60px rgba(150,120,200,.14);
+  border-left:1px solid rgba(107,93,128,.10);border-right:1px solid rgba(107,93,128,.10);
+}
+html[data-theme="day"] .btn-primary{
+  background:linear-gradient(135deg,#d946ef,#ec4899);color:#fff;
+  box-shadow:0 6px 20px rgba(236,72,153,.30);
+}
+html[data-theme="day"] input,html[data-theme="day"] select,html[data-theme="day"] textarea{
+  background:var(--surface-2);border-color:var(--border);
+}
+html[data-theme="day"] .cal-cell{background:var(--surface-2)}
+html[data-theme="day"] .toast{background:var(--surface-2);box-shadow:0 8px 24px rgba(60,40,90,.15)}
+
+/* ---------- Confetti ---------- */
+#confetti-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999}
+
+/* ---------- Theme picker ---------- */
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-sm)}
+.theme-card{background:var(--surface-2);border:1.5px solid var(--border-subtle);border-radius:var(--r-lg);padding:var(--sp-sm);text-align:center;cursor:pointer;transition:all var(--dur-fast) var(--ease-out-quart)}
+.theme-card.selected{border-color:var(--accent);box-shadow:0 0 16px var(--accent-glow)}
+.theme-card:hover{transform:translateY(-2px)}
+.theme-preview{height:56px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:var(--sp-sm)}
+.theme-preview-youth{background:linear-gradient(135deg,#a855f7,#ec4899);box-shadow:0 4px 16px rgba(236,72,153,.4)}
+.theme-preview-cyber{background:linear-gradient(135deg,#0e2a47,#22d3ee);box-shadow:0 4px 16px rgba(34,211,238,.3)}
+.theme-preview-day{background:linear-gradient(135deg,#fff7ed,#fbbf24);box-shadow:0 4px 16px rgba(251,191,36,.35)}
+.theme-name{font-size:0.78rem;font-weight:600;color:var(--text-primary)}
+.theme-desc{font-size:0.62rem;color:var(--text-tertiary);margin-top:2px}
+
+/* ---------- Payment ---------- */
+.pay-order-line{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-secondary);padding:6px 0;border-bottom:1px dashed var(--border-subtle)}
+.pay-order-line b{color:var(--accent);font-family:var(--font-mono)}
+.method-list{display:flex;flex-direction:column;gap:var(--sp-sm);margin:var(--sp-md) 0}
+.method-card{display:flex;align-items:center;gap:var(--sp-sm);background:var(--surface-2);border:1.5px solid var(--border-subtle);border-radius:var(--r-md);padding:var(--sp-sm);cursor:pointer;transition:all var(--dur-fast)}
+.method-card:hover{border-color:var(--accent-dim)}
+.method-card.selected{border-color:var(--accent);background:var(--accent-glow)}
+.method-icon{flex:none;width:38px;height:38px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.method-icon.alipay{background:rgba(22,119,255,.15)}
+.method-icon.wechat{background:rgba(9,187,7,.15)}
+.method-icon.afdian{background:rgba(252,102,54,.15)}
+.method-icon.key{background:var(--violet-glow)}
+.method-icon.demo{background:var(--accent-glow)}
+.method-name{font-size:0.82rem;font-weight:600;color:var(--text-primary)}
+.method-desc{font-size:0.64rem;color:var(--text-tertiary)}
+.order-list{display:flex;flex-direction:column;gap:var(--sp-sm);max-height:40vh;overflow-y:auto}
+.order-item{display:flex;align-items:center;justify-content:space-between;background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:var(--sp-sm);font-size:0.72rem}
+.order-status{padding:2px 8px;border-radius:999px;font-size:0.6rem;font-family:var(--font-mono)}
+.order-status.paid{color:var(--success);border:1px solid var(--success);background:oklch(80% 0.15 155 / .1)}
+.order-status.pending{color:var(--warning);border:1px solid var(--warning);background:oklch(82% 0.15 85 / .1)}
+
+/* ---------- Share card ---------- */
+.share-actions{display:flex;gap:var(--sp-sm);margin-top:var(--sp-md)}
+.share-actions .btn{flex:1}
+.share-card-wrap{display:flex;justify-content:center;background:var(--bg-deep);border-radius:var(--r-lg);padding:var(--sp-md)}
+#share-card{max-width:100%;height:auto;border-radius:var(--r-md);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+
+/* ---------- Install banner ---------- */
+.install-banner{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + 12px);z-index:60;width:calc(100% - 32px);max-width:440px;background:var(--surface-2);backdrop-filter:blur(14px);border:1px solid var(--accent-dim);border-radius:var(--r-lg);padding:12px 14px;display:flex;align-items:center;gap:var(--sp-sm);box-shadow:0 12px 40px rgba(0,0,0,.35);animation:step-enter 400ms var(--ease-out-expo)}
+.install-banner.hidden{display:none}
+.install-banner .ib-icon{flex:none;font-size:1.5rem}
+.install-banner .ib-text{flex:1;font-size:0.74rem;color:var(--text-secondary);line-height:1.5}
+.install-banner .ib-text b{color:var(--text-primary)}
+.install-banner .ib-close{flex:none;color:var(--text-tertiary);font-size:1rem;cursor:pointer;padding:4px}
+
+/* ---------- Newbie guide ---------- */
+.guide-step{display:flex;gap:var(--sp-sm);align-items:flex-start;background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:var(--sp-sm);margin-bottom:var(--sp-sm)}
+.guide-step-num{flex:none;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--accent-deep),var(--accent));color:#fff;font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.guide-step-text{font-size:0.78rem;color:var(--text-secondary);line-height:1.7}
+.guide-step-text b{color:var(--text-primary)}
